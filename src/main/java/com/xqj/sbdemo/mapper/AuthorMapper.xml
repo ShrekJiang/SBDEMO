@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xqj.sbdemo.mapper.AuthorMapper">
+    <!--<resultMap id="BaseResultMap" type="com.xqj.sbdemo.entity.Author">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="BIGINT" />
+    </resultMap>-->
+    <!--explain 可以光用resultType指向类，也可以用resultMap；parameterType不必要-->
+    <select id="getAuthorByID" resultType="com.xqj.sbdemo.entity.Author"><!--parameterType="com.xqj.sbdemo.entity.Author" resultMap="BaseResultMap" -->
+        SELECT id,name,age<!--explain 用*也行-->
+        FROM Author
+        WHERE id = #{id}
+    </select>
+
+</mapper>

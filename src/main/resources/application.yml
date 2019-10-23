@@ -1,0 +1,158 @@
+server:
+  port: 9090
+name: maomao
+age: 1999
+projectName: 龙丽温项目Linux服务器信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+     health:
+       show-details: always
+  server:
+      port: 9090
+      servlet:
+        context-path: /actuator
+      ssl:
+        enabled: false
+mybatis:
+  #config-locations: mybatis/mybatis-config.xml
+  #这个mapper-locations: classpath:mapper/*.xml里的apper/*.xml是要在resources中，醉了
+  #后来在pom文件中加了resources的配置，就不需要在resources中了
+  #classpath与classpath*有区别的
+  mapper-locations: classpath:com/xqj/sbdemo/mapper/*.xml
+  type-aliases-package: com.xqj.sbdemo.mapper
+schedule:
+  enabled: true
+
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:oracle:thin:@192.168.0.158:1522:yggc
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: ANC_WRYG
+    password: ANC_WRYG
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    #redis机器ip
+    host: 192.168.184.11
+    #redis端口
+    port: 6379
+    #redis密码
+    password:
+    #redis超时时间（毫秒），如果不设置，取默认值2000
+    timeout: 10000
+  mail: #explain 这个不写的话，@Autowired private JavaMailSender javaMailSender; 就会找不到
+    host: smtp.qq.com
+    username: 657833483@qq.com
+    password: snelzcnclucfbdbe
+    port: 465
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.port: 465
+  thymeleaf:
+    prefix: classpath:/templates/ #默认的，无需写，默认配置在ThymeleafProperties
+    suffix: .html #explain Ctrl+Shift+F9可以热更新html页面
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+
+logging:
+  level:
+    root: info
+  file: D:/systemInfoMonitor.log
+
+---
+
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://192.168.184.11:3306/NEW_SBDEMO?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    #redis机器ip
+    host: 192.168.184.11
+    #redis端口
+    port: 6379
+    #redis密码
+    password:
+    #redis超时时间（毫秒），如果不设置，取默认值2000
+    timeout: 10000
+  mail:
+    host: smtp.qq.com
+    username: 657833483@qq.com
+    password: snelzcnclucfbdbe
+    port: 465
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.port: 465
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+
+logging:
+  level:
+    root: info
+  file: /usr/local/windows_things/systemInfoMonitor.log
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:oracle:thin:@10.100.1.118/orcl
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: ANC_WRYG
+    password: i36s3y*U
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    #redis机器ip
+    host: 192.168.184.11
+    #redis端口
+    port: 6379
+    #redis密码
+    password:
+    #redis超时时间（毫秒），如果不设置，取默认值2000
+    timeout: 10000
+  mail:
+    host: smtp.qq.com
+    username: 657833483@qq.com
+    password: snelzcnclucfbdbe
+    port: 465
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.port: 465
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+
+logging:
+  level:
+    root: info
+  file: /usr/local/systemInfoMonitor.log

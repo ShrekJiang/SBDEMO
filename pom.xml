@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.6.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.xqj</groupId>
+    <artifactId>sbdemo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>IDEA_SBDEMO</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>1.7</java.version>
+    </properties>
+
+    <!-- 设定主仓库，按设定顺序进行查找。 -->
+    <repositories>
+        <repository>
+            <id>aliyun-repos</id>
+            <name>Aliyun Repository</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+
+        <repository>
+            <id>thirdparty</id>
+            <url>http://192.168.0.165:8081/nexus/content/repositories/thirdparty</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- explain 以下三个是在创建工程的时候引入的Mybatis、Mysql、Spring JPA（不知道有什么用） -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.34</version><!--explain 不指定版本的话，版本会过高，导致报CLIENT_PLUGIN_AUTH is required错-->
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!--explain 网上的版本号，不知道新不新-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <!--集成redis-->
+        <!--explain springBoot redis spring-boot-starter-data-redis与spring-boot-starter-redis两个包的区别
+        可以看出两个包并没有区别，但是当springBoot的版本为1.4.7 以上的时候，spring-boot-starter-redis 就空了。要想引入redis就只能选择有data的-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--集成Slf4j，但是这种方式有点小怪异-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--集成邮件发送-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!--集成spring-boot-监控-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--集成thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!--Oracle连接  网上找到的事ojdbc6，引用进来下载不到。所以先用公司这个-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>10.2.0.4.0</version>
+        </dependency>
+
+        <!--集成bootstrap，至于下面的jquery是否必须不知道-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <!--springboot的热更新热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <!--explain 打成jar包时这里要指定主类
+                不然会报Unable to find a single main class from the following candidates的错-->
+                <configuration>
+                    <mainClass>com.xqj.sbdemo.IdeaSbdemoApplication</mainClass>
+                </configuration>
+
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+
+
+        <resources>
+            <!--explain 新版的idea默认是不编译java下的xml文件的，由于程序员都习惯将mapper与xml放在同一个目录下而导致了无法编译xml，
+        就不会把xml编译到class目录下，致使无法注入相关的Bean，加上下面这句就好了-->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!--explain 打成jar包的时候，这个配置文件也要让它被扫描到，不然会先报dateSource 的url未定义的错误-->
+            <resource>
+                <directory>src/main/resources</directory><!--
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>templates/*</include>
+                </includes>--><!--索性这样吧，不然templates和static什么的都要加，不然比如templates会找不到-->
+            </resource>
+        </resources>
+
+    </build>
+
+</project>

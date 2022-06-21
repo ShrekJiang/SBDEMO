@@ -52,7 +52,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.34</version><!--explain 不指定版本的话，版本会过高，导致报CLIENT_PLUGIN_AUTH is required错-->
+            <version>8.0.28</version><!--explain 不指定版本的话，版本会过高，导致报CLIENT_PLUGIN_AUTH is required错-->
             <scope>runtime</scope>
         </dependency>
         <dependency>
